@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 // import { Link } from 'react-router-dom'
 // import { CaptainDataContext } from '../context/CaptainContext'
 // import { useNavigate } from 'react-router-dom'
@@ -170,7 +171,7 @@ const BarberSignup = () => {
           >Create Captain Account</button>
 
         </form>
-        <p className='text-center'>Already have a account? <a to='/captain-login' className='text-blue-600'>Login here</a></p>
+        <p className='text-center'>Already have a account? <Link to='/barber/login' className='text-blue-600'>Login here</Link></p>
       </div>
       <div>
         <p className='text-[10px] mt-6 leading-tight'>This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy

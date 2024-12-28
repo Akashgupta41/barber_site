@@ -88,12 +88,12 @@ const BarberLogin = () => {
         </p>
       </div>
       <div>
-        <a
-          to="/login"
+        <Link
+          to="/user/signup"
           className="bg-[#b47210] flex items-center justify-center text-white font-semibold mb-5 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base"
         >
-          Sign in as Barber
-        </a>
+          Sign in as User
+        </Link>
       </div>
     </div>
   );
