@@ -5,6 +5,7 @@ import UserLogin from './pages/auth/UserLogin';
 import UserSignUp from "./pages/auth/UserSignUp";
 import BarberSignUp from './pages/auth/BarberSignUp';
 import BarberLogin from './pages/auth/BarberLogin';
+import ShopInfo from "./pages/shop/ShopInfo";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/user/signup" element={<UserSignUp/>}/>
         <Route path="/barber/login" element={<BarberLogin/>}/>
         <Route path="/barber/signup" element={<BarberSignUp/>}/>
+        <Route path="/barber/shop-info" element={<ShopInfo/>}/>
       </Routes>
     </div>
   );

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserSignUp = () => {
   const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -75,6 +76,18 @@ const UserSignUp = () => {
             className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
             type="email"
             placeholder="email@example.com"
+          />
+
+<h3 className="text-lg font-medium mb-2">Enter your City Name</h3>
+          <input
+            required
+            value={city}
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+            className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
+            type="email"
+            placeholder="abcd"
           />
 
           <h3 className="text-lg font-medium mb-2">Enter Password</h3>
