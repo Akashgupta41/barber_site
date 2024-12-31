@@ -1,54 +1,28 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-// import { useNavigate } from 'react-router-dom'
-// import axios from 'axios'
-// import { CaptainDataContext } from '../context/CaptainContext'
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useBarberAuthStore } from "../../store/useBarberAuthStore";
 
 const BarberLogin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { BarberLogin } = useBarberAuthStore();
+  const navigate = useNavigate();
 
-  const [ email, setEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
-
-//   const { captain, setCaptain } = React.useContext(CaptainDataContext)
-//   const navigate = useNavigate()
-
-
-
-//   const submitHandler = async (e) => {
-//     e.preventDefault();
-//     const captain = {
-//       email: email,
-//       password
-//     }
-
-//     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/login`, captain)
-
-//     if (response.status === 200) {
-//       const data = response.data
-
-//       setCaptain(data.captain)
-//       localStorage.setItem('token', data.token)
-//       navigate('/captain-home')
-
-//     }
-
-//     setEmail('')
-//     setPassword('')
-//   }
-
+  const submitHandler = async (e) => {
+    const data = {
+      email,
+      password,
+    };
+    BarberLogin(data);
+    navigate("/home");
+  };
 
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <img
-          className="w-16 mb-10"
-          src="https://png.pngtree.com/png-vector/20220527/ourmid/pngtree-barbershop-razor-and-blade-vector-icon-of-barber-shop-and-gentleman-png-image_4755115.png"
-          alt=""
-        />
-
         <form
           onSubmit={(e) => {
-            // submitHandler(e)
+            submitHandler(e);
           }}
         >
           <h3 className="text-lg font-medium mb-2">What's your email</h3>
@@ -82,18 +56,18 @@ const BarberLogin = () => {
         </form>
         <p className="text-center">
           Join a fleet?{" "}
-          <a to="/captain-signup" className="text-blue-600">
+          <Link to="/barber/signup" className="text-blue-600">
             Register as a Barber
-          </a>
+          </Link>
         </p>
-      </div>
-      <div>
-        <Link
-          to="/user/signup"
-          className="bg-[#b47210] flex items-center justify-center text-white font-semibold mb-5 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base"
-        >
-          Sign in as User
-        </Link>
+        <div className="mt-14">
+          <Link
+            to="/user/signup"
+            className="bg-[#b47210] flex items-center justify-center text-white font-semibold mb-5 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base"
+          >
+            Sign in as User
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,68 +1,37 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-// import { Link } from 'react-router-dom'
-// import { CaptainDataContext } from '../context/CaptainContext'
-// import { useNavigate } from 'react-router-dom'
-// import axios from 'axios'
+import { Link, useNavigate } from "react-router-dom";
+import { useBarberAuthStore } from "../../store/useBarberAuthStore";
 
 const BarberSignup = () => {
-  //   const navigate = useNavigate()
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullname, setFullName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const { barberSignUp } = useBarberAuthStore();
+  const navigate = useNavigate();
 
-  //   const { captain, setCaptain } = React.useContext(CaptainDataContext)
-
-  //   const submitHandler = async (e) => {
-  //     e.preventDefault()
-  //     const captainData = {
-  //       fullname: {
-  //         firstname: firstName,
-  //         lastname: lastName
-  //       },
-  //       email: email,
-  //       password: password,
-  //       vehicle: {
-  //         color: vehicleColor,
-  //         plate: vehiclePlate,
-  //         capacity: vehicleCapacity,
-  //         vehicleType: vehicleType
-  //       }
-  //     }
-
-  //     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/register`, captainData)
-
-  //     if (response.status === 201) {
-  //       const data = response.data
-  //       setCaptain(data.captain)
-  //       localStorage.setItem('token', data.token)
-  //       navigate('/captain-home')
-  //     }
-
-  //     setEmail('')
-  //     setFirstName('')
-  //     setLastName('')
-  //     setPassword('')
-  //     setVehicleColor('')
-  //     setVehiclePlate('')
-  //     setVehicleCapacity('')
-  //     setVehicleType('')
-
-  //   }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      fullName,
+      password,
+    };
+   
+    try {
+      await barberSignUp(data);
+    } catch (error) {
+      console.error("Error adding barber signup:", error);
+    } finally {
+      navigate("/barber/shop-info");
+    }
+  };
 
   return (
     <div className="py-5 px-5 h-screen flex flex-col justify-between">
       <div>
-        <img
-          className="w-20 mb-3"
-          src="https://www.svgrepo.com/show/505031/uber-driver.svg"
-          alt=""
-        />
-
         <form
           onSubmit={(e) => {
-            //   submitHandler(e)
+            handleSubmit(e);
           }}
         >
           <h3 className="text-lg w-full  font-medium mb-2">
@@ -74,7 +43,7 @@ const BarberSignup = () => {
             className="bg-[#eeeeee] w-full rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
             type="text"
             placeholder="Fullname"
-            value={fullname}
+            value={fullName}
             onChange={(e) => {
               setFullName(e.target.value);
             }}
@@ -106,7 +75,6 @@ const BarberSignup = () => {
             type="password"
             placeholder="password"
           />
-
 
           <button
             className="bg-[#111] text-white font-semibold mb-3 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base"

@@ -43,11 +43,8 @@ const UserSignUp = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <img
-          className="w-16 mb-10"
-          src="https://png.pngtree.com/png-vector/20220527/ourmid/pngtree-barbershop-razor-and-blade-vector-icon-of-barber-shop-and-gentleman-png-image_4755115.png"
-          alt=""
-        />
+       
+       
 
         <form
           onSubmit={(e) => {

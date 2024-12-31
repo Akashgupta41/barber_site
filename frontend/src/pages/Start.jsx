@@ -10,8 +10,10 @@ const Start = () => {
           src="https://png.pngtree.com/png-vector/20220527/ourmid/pngtree-barbershop-razor-and-blade-vector-icon-of-barber-shop-and-gentleman-png-image_4755115.png"
           alt=""
         />
-        <div className="bg-white pb-7 py-4 px-4">
-          <h2 className="text-2xl text-center font-bold">Get Started with Barber Found</h2>
+        <div className="bg-white pb-20 py-4 px-4">
+          <h2 className="text-2xl text-center font-bold">
+            Get Started with Barber Found
+          </h2>
           <a
             to={"/login"}
             className=" flex items-center justify-center w-full bg-black text-white py-3 rounded mt-5"
