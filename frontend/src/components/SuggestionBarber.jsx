@@ -10,28 +10,25 @@ const ProfileSuggestions = () => {
   const { authUser } = useUserAuthStore();
   const { barbers } = useBarberAuthStore();
   const navigate = useNavigate();
-  
+
   const suggestedBarbers = barbers.filter(
     (barber) =>
       barber.shop.location.state.toLowerCase() === authUser.state.toLowerCase()
   );
-
-  
-  
 
   const handleProfileClick = (barberId) => {
     navigate(`/barber/profile/${barberId}`);
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full ">
       <h2 className="text-xl font-bold mb-4">Suggestions for You</h2>
-      <div className="flex overflow-x-auto space-x-4">
+      <div className="flex overflow-x-auto w-full space-x-4">
         {suggestedBarbers.length > 0 ? (
           suggestedBarbers.map((barber) => (
             <div
               key={barber._id}
-              className="flex-col items-center justify-center flex w-48 p-4 bg-white rounded-lg shadow-lg"
+              className="flex-shrink-0 flex-col items-center justify-center flex w-48 h-60 bg-white rounded-lg shadow-xl m-4"
               onClick={() => handleProfileClick(barber._id)}
             >
               <Avatar
@@ -41,18 +38,15 @@ const ProfileSuggestions = () => {
                 round={true}
                 className="mb-4"
               />
-              <h3 className="text-md font-semibold">{barber.shop.shopname}</h3>
-              <p className="text-sm text-gray-500">
-                {barber.shop.location.state}, {barber.shop.location.city},{" "}
-                {barber.shop.location.district}
+              <h3 className="text-md font-semibold text-center">{barber.shop.shopname}</h3>
+              <p className="text-sm text-gray-500 text-center">
+                {barber.shop.location.state}, {barber.shop.location.city}, {barber.shop.location.district}
               </p>
             </div>
           ))
         ) : (
           <div className="flex justify-center items-center w-full flex-col border-1 border border-black p-6 rounded-lg">
-            <h3 className="text-red-900 font-bold mb-2 mt-4">
-              No suggestions for you!
-            </h3>
+            <h3 className="text-red-900 font-bold mb-2 mt-4">No suggestions for you!</h3>
             <FaRegFaceDizzy color="red" size={30} />
           </div>
         )}
@@ -62,4 +56,3 @@ const ProfileSuggestions = () => {
 };
 
 export default ProfileSuggestions;
-

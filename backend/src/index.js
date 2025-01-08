@@ -8,7 +8,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import reviewRoutes from "./routes/review.routes.js";
 import path from "path";
-
+import B from './routes/dm.js'
+B();
 const app = express();
 const __dirname = path.resolve();
 
