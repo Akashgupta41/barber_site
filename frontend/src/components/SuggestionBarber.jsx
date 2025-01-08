@@ -1,51 +1,65 @@
 import React from "react";
 import Avatar from "react-avatar";
 import "tailwindcss/tailwind.css";
+import { useBarberAuthStore } from "../store/useBarberAuthStore";
+import { useUserAuthStore } from "../store/useUserAuthStore";
+import { FaRegFaceDizzy } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSuggestions = () => {
-  const users = [
-    {
-      id: 1,
-      name: "Alice Johnson",
-      profilePic: "https://via.placeholder.com/50",
-    },
-    { id: 2, name: "Bob Smith", profilePic: "https://via.placeholder.com/50" },
-    {
-      id: 3,
-      name: "Charlie Brown",
-      profilePic: "https://via.placeholder.com/50",
-    },
-    {
-      id: 4,
-      name: "David Williams",
-      profilePic: "https://via.placeholder.com/50",
-    },
-    { id: 5, name: "Eve White", profilePic: "https://via.placeholder.com/50" },
-    // Add more users as needed
-  ];
+  const { authUser } = useUserAuthStore();
+  const { barbers } = useBarberAuthStore();
+  const navigate = useNavigate();
+  
+  const suggestedBarbers = barbers.filter(
+    (barber) =>
+      barber.shop.location.state.toLowerCase() === authUser.state.toLowerCase()
+  );
+
+  
+  
+
+  const handleProfileClick = (barberId) => {
+    navigate(`/barber/profile/${barberId}`);
+  };
 
   return (
     <div className="w-full p-4">
       <h2 className="text-xl font-bold mb-4">Suggestions for You</h2>
       <div className="flex overflow-x-auto space-x-4">
-        {users.map((user) => (
-          <div
-            key={user.id}
-            className=" flex-col items-center justify-center flex w-48 p-4 bg-white rounded-lg shadow-lg"
-          >
-            <Avatar
-              src={user.profilePic}
-              name={user.name}
-              size="30"
-              round={true}
-              className="mb-4"
-            />
-            <h3 className="text-xs  font-semibold">{user.name}</h3>
+        {suggestedBarbers.length > 0 ? (
+          suggestedBarbers.map((barber) => (
+            <div
+              key={barber._id}
+              className="flex-col items-center justify-center flex w-48 p-4 bg-white rounded-lg shadow-lg"
+              onClick={() => handleProfileClick(barber._id)}
+            >
+              <Avatar
+                src={barber.profilePic}
+                name={barber.fullName}
+                size="50"
+                round={true}
+                className="mb-4"
+              />
+              <h3 className="text-md font-semibold">{barber.shop.shopname}</h3>
+              <p className="text-sm text-gray-500">
+                {barber.shop.location.state}, {barber.shop.location.city},{" "}
+                {barber.shop.location.district}
+              </p>
+            </div>
+          ))
+        ) : (
+          <div className="flex justify-center items-center w-full flex-col border-1 border border-black p-6 rounded-lg">
+            <h3 className="text-red-900 font-bold mb-2 mt-4">
+              No suggestions for you!
+            </h3>
+            <FaRegFaceDizzy color="red" size={30} />
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
 };
 
 export default ProfileSuggestions;
+

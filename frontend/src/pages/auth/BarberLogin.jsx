@@ -5,16 +5,21 @@ import { useBarberAuthStore } from "../../store/useBarberAuthStore";
 const BarberLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { BarberLogin } = useBarberAuthStore();
-  const navigate = useNavigate();
+  const { barberLogin } = useBarberAuthStore();
+
 
   const submitHandler = async (e) => {
+    e.preventDefault()
     const data = {
       email,
       password,
     };
-    BarberLogin(data);
-    navigate("/home");
+  try {
+     await barberLogin(data);
+
+  } catch (error) {
+    console.log(error);
+  }
   };
 
   return (

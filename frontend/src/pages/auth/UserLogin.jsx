@@ -1,50 +1,38 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-// import { UserDataContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
-
-// import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserAuthStore } from "../../store/useUserAuthStore";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { userLogin } = useUserAuthStore();
 
-//   const { user, setUser } = useContext(UserDataContext);
-//   const navigate = useNavigate();
+  const submitHandler = async (e) => {
+    e.preventDefault();
 
-//   const submitHandler = async (e) => {
+    const data = {
+      email: email,
+      password: password,
+    };
+    
+    try {
+      await userLogin(data);
+      setEmail("");
+      setPassword("");
+      
+    } catch (error) {
+      console.log(error);
+    }
 
-//     e.preventDefault();
-
-//     const userData = {
-//       email: email,
-//       password: password,
-//     };
-
-//     const response = await axios.post(
-//       `${import.meta.env.VITE_BASE_URL}/user/login`,
-//       userData
-//     );
-
-//     if (response.status === 200) {
-//       const data = response.data;
-//       setUser(data.user);
-//       localStorage.setItem("token", data.token);
-//       navigate("/home");
-//     }
-
-//     setEmail("");
-//     setPassword("");
-//   };
+  };
 
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-      
-
         <form
           onSubmit={(e) => {
-            // submitHandler(e);
+            submitHandler(e);
           }}
         >
           <h3 className="text-lg font-medium mb-2">What's your email</h3>

@@ -9,20 +9,33 @@ export const useBarberAuthStore = create((set) => ({
   isSigningUp: false,
   isLoggingIn: false,
   isUpdatingProfile: false,
-  isCheckingBarberAuth: true,
+  isCheckingBarberAuth:true,
   barbers: [],
+  fetchedBarber: null,
 
   checkBarberAuth: async () => {
     try {
       const res = await axiosInstance.get("/barber/profile");
       set({ authBarber: res.data });
-     
-      
     } catch (error) {
       console.log("error in checkAuth", error);
       set({ authBarber: null });
     } finally {
-      set({ isgetBarbers: false });
+      set({ isCheckingBarberAuth: false });
+    }
+  },
+
+  updateProfile: async (data) => {
+    set({ isUpdatingProfile: true });
+    try {
+      const res = await axiosInstance.put("/barber/update-profile", data);
+      set({ authBarber: res.data });
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      console.log("error in update profile:", error);
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isUpdatingProfile: false });
     }
   },
 
@@ -33,8 +46,6 @@ export const useBarberAuthStore = create((set) => ({
     } catch (error) {
       console.log("error in checkAuth", error);
       set({ barbers: null });
-    } finally {
-      set({ isCheckingBarberAuth: false });
     }
   },
   barberSignUp: async (data) => {
@@ -65,16 +76,41 @@ export const useBarberAuthStore = create((set) => ({
     }
   },
 
+  barberLogout: async () => {
+    try {
+      await axiosInstance.post("/barber/logout");
+      set({ authBarber: null });
+      toast.success("Logged out successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  },
+
   addShopInfo: async (data) => {
     set({ isAddingShopInfo: true });
     try {
-      const res = await axiosInstance.put("/barber/add/shop", data);
-      toast.success("Shop  Info Added Successfully");
+      const res = await axiosInstance.put("/barber/add/shop", data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(res);
+      toast.success("Shop Info Added Successfully");
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error);
     } finally {
       set({ isAddingShopInfo: false });
+    }
+  }
+,  
+
+  fetchBarberDetails: async (barberId) => {
+    try {
+      const response = await axiosInstance.get(`/barber/${barberId}`);
+      set({ fetchedBarber: response.data.barber });
+    } catch (error) {
+      console.error("Failed to fetch barber details:", error);
     }
   },
 }));

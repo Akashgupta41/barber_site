@@ -14,12 +14,12 @@ const Start = () => {
           <h2 className="text-2xl text-center font-bold">
             Get Started with Barber Found
           </h2>
-          <a
-            to={"/login"}
+          <Link
+            to={"/user/signup"}
             className=" flex items-center justify-center w-full bg-black text-white py-3 rounded mt-5"
           >
             Continue
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,65 +1,62 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-// import { UserDataContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
-
-// import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserAuthStore } from "../../store/useUserAuthStore";
+import { stateData } from "../../lib/statedata";
 
 const UserSignUp = () => {
   const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
-  const [fullname, setFullName] = useState("");
+  const [state, setState] = useState("");
+  const [stateSearch, setStateSearch] = useState("");
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const { userSignUp } = useUserAuthStore();
+  const navigate = useNavigate();
 
-  //   const { user, setUser } = useContext(UserDataContext);
-  //   const navigate = useNavigate();
+  const handleStateChange = (state) => {
+    setState(state);
+    setStateSearch(state);
+    setShowSuggestions(false);
+  };
 
-  //   const submitHandler = async (e) => {
+  const filteredStates = stateData.states.filter((stateObj) =>
+    stateObj.state.toLowerCase().includes(stateSearch.toLowerCase())
+  );
 
-  //     e.preventDefault();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      state,
+      password,
+      fullName,
+    };
 
-  //     const userData = {
-  //       email: email,
-  //       password: password,
-  //  fullname:fullname
-  //     };
-
-  //     const response = await axios.post(
-  //       `${import.meta.env.VITE_BASE_URL}/user/login`,
-  //       userData
-  //     );
-
-  //     if (response.status === 200) {
-  //       const data = response.data;
-  //       setUser(data.user);
-  //       localStorage.setItem("token", data.token);
-  //       navigate("/home");
-  //     }
-
-  //     setEmail("");
-  //     setPassword("");
-  //   };
+    try {
+      await userSignUp(data);
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-       
-       
-
         <form
           onSubmit={(e) => {
-            // submitHandler(e);
+            submitHandler(e);
           }}
         >
           <h3 className="text-lg font-medium mb-2">Enter your Full Name</h3>
           <input
             required
-            value={fullname}
+            value={fullName}
             onChange={(e) => {
               setFullName(e.target.value);
             }}
             className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
-            type="email"
+            type="text"
             placeholder="Abcd"
           />
 
@@ -75,20 +72,35 @@ const UserSignUp = () => {
             placeholder="email@example.com"
           />
 
-<h3 className="text-lg font-medium mb-2">Enter your City Name</h3>
-          <input
-            required
-            value={city}
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
-            className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
-            type="email"
-            placeholder="abcd"
-          />
+          <h3 className="text-lg font-medium mb-2">Enter your State Name</h3>
+          <div className="w-full mb-7 relative">
+            <input
+              type="text"
+              placeholder="Enter State Name"
+              className="bg-[#eeeeee] w-full rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              value={stateSearch}
+              onChange={(e) => {
+                setStateSearch(e.target.value);
+                setShowSuggestions(true);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+            />
+            {showSuggestions && stateSearch && (
+              <div className="absolute bg-white border rounded-lg mt-1 w-full max-h-40 overflow-auto">
+                {filteredStates.map((stateObj, index) => (
+                  <div
+                    key={index}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                    onClick={() => handleStateChange(stateObj.state)}
+                  >
+                    {stateObj.state}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <h3 className="text-lg font-medium mb-2">Enter Password</h3>
-
           <input
             className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
             value={password}
@@ -105,7 +117,7 @@ const UserSignUp = () => {
           </button>
         </form>
         <p className="text-center">
-          Allready have a acount?{" "}
+          Already have an account?{" "}
           <Link to="/user/login" className="text-blue-600">
             Login
           </Link>
