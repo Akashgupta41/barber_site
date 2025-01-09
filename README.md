@@ -9,8 +9,8 @@ BarberFinder is a fullstack web application designed to help users find and book
 - [Usage](#usage)
 - [Screenshots](#screenshots)
 - [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
+- [Project Deployed Link](#project-deployed-link)
+
 
 ## Features
 - User registration and authentication
@@ -79,9 +79,7 @@ BarberFinder is a fullstack web application designed to help users find and book
 - As a customer, search for barbers, view their profiles, and leave reviews.
 
 
-## Project Deployed Link
 
-✈️ (https://findbarber-z9f5.onrender.com)
 
 
 ## API Endpoints
@@ -110,9 +108,8 @@ BarberFinder is a fullstack web application designed to help users find and book
 - `GET /api/service/user` - Get meatings for a  barber
 - `GET /api/service/barber` - Get meatings for a  barber
 - `PUT /api/service/update/:serviceId` - update meating by barber
-  
-## Contributing
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) before submitting a pull request.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## Project Deployed Link
+
+✈️ (https://findbarber-z9f5.onrender.com)
+  
