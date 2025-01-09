@@ -22,7 +22,7 @@ BarberFinder is a fullstack web application designed to help users find and book
 - JWT-based authentication
 
 ## Technologies Used
-- **Frontend**: React, Tailwind CSS, react-router-dom, react-icons
+- **Frontend**: React, Tailwind CSS, react-router-dom, react-icons,react-hot-toast,zustand,daisyui
 - **Backend**: Node.js, Express.js, Mongoose, JWT, bcrypt,cloudinary
 - **Database**: MongoDB
 - **Other**: Axios,multer
@@ -97,9 +97,9 @@ BarberFinder is a fullstack web application designed to help users find and book
 - `POST /api/barber/login` - Login a barber
 - `PUT /api/barber/update-profile` - For barber  update profile
 - `GET /api/barber/profile -  Get Barber Profile
--  `GET /api/barber/all -  Get all Barbers
--   `GET /api/barber/:id -  Get Barber by id
--   `PUT /api/barber/add/shop -  Add Barber's Shop
+- `GET /api/barber/all -  Get all Barbers
+- `GET /api/barber/:id -  Get Barber by id
+- `PUT /api/barber/add/shop -  Add Barber's Shop
 
 ### Reviews
 - `POST /api/review/post` - Add a review
