@@ -78,13 +78,10 @@ BarberFinder is a fullstack web application designed to help users find and book
 - As a barber, create and manage your profile, shop details, and services.
 - As a customer, search for barbers, view their profiles, and leave reviews.
 
-## Screenshots
-_Add some screenshots of the application here to give users a visual overview._
-![Screenshot 2025-01-09 091612](https://github.com/user-attachments/assets/5f936e28-5369-4c60-b992-3f648c6b76e4)
 
 ## Project Deployed Link
 
-✈️ findbarber-z9f5.onrender.com
+✈️ (https://findbarber-z9f5.onrender.com)
 
 
 ## API Endpoints
